@@ -55,6 +55,7 @@ export default css`
   padding: 20px 30px;
   height: 120px;
   display: flex;
+  justify-content: space-between;
 }
  
 .item:nth-child(3) {
@@ -129,6 +130,9 @@ Let’s add some basic style to  product name and description.
 .quantity {
   padding-top: 20px;
   margin-right: 60px;
+}
+.item-name {
+  padding-top: 20px;
 }
 .quantity input {
   -webkit-appearance: none;

@@ -1,7 +1,15 @@
 import { ADD_ITEM, REMOVE_ITEM, CLOSE_CART, OPEN_CART } from '../actions/cart';
 
 const initialState = {
-  items: [],
+  items: [
+    {
+      name: 'Tenis shidos',
+      code: '',
+      image: 'https://designmodo.com/demo/shopping-cart/item-1.png',
+      quantity: 3,
+      price: 100
+    }
+  ],
   visible: false
 }
 

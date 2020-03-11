@@ -23,18 +23,19 @@ class NotifyBar extends LitElement {
   }
 }
 
-export function notify(txt, type = 'primary'){
-  let area = document.querySelector(".notify-area").attachShadow({mode: 'open'});
+export function notify(txt, type = 'primary') {
+  let area = document.querySelector(".notify-area").attachShadow({ mode: 'open' });
   let style = document.createElement('style');
-  style.textContent= alertStyles;
+  style.textContent = alertStyles;
   let alert = document.createElement("div");
+  document.querySelector(".notify-area").setAttribute(type, '');
   alert.innerHTML = `${txt}<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>`;
   area.appendChild(style);
   area.appendChild(alert);
-  setTimeout( function(){
+  setTimeout(function () {
     area.removeChild(alert);
     area.removeChild(style);
   }, 3000);
-  
+
 }
 window.customElements.define('notify-bar', NotifyBar);
