@@ -33,6 +33,14 @@ export default css`
   flex-direction: column;
   z-index: 3;
 }
+.check-items {
+  padding: 20px 30px;
+  color: #5E6977;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  
+}
 .title {
   height: 60px;
   border-bottom: 1px solid #E1E8EE;

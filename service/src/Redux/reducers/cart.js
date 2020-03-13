@@ -1,15 +1,7 @@
-import { ADD_ITEM, REMOVE_ITEM, CLOSE_CART, OPEN_CART } from '../actions/cart';
+import { ADD_ITEM, REMOVE_ITEM, CLOSE_CART, OPEN_CART, CLEAR_CART } from '../actions/cart';
 
 const initialState = {
-  items: [
-    {
-      name: 'Tenis shidos',
-      code: '',
-      image: 'https://designmodo.com/demo/shopping-cart/item-1.png',
-      quantity: 3,
-      price: 100
-    }
-  ],
+  items: [],
   visible: false
 }
 
@@ -34,6 +26,11 @@ export default function cart(state = initialState, action) {
       return {
         ...state,
         items: state.items.filter((value, index) => index !== action.index)
+      }
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: []
       }
     default:
       return state;

@@ -2,6 +2,7 @@ export const OPEN_CART = 'OPEN_CART';
 export const CLOSE_CART = 'CLOSE_CART';
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export function openCart() {
     return {

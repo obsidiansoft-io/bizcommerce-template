@@ -5,6 +5,8 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 import { PageView } from '../Components/page-view';
 import { store } from '../Redux/store.js';
 
+import '../Components/item-store';
+
 class HomeApp extends connect(store)(PageView) {
   openCart() {
     store.dispatch({ type: 'OPEN_CART' })
@@ -13,7 +15,10 @@ class HomeApp extends connect(store)(PageView) {
     return html`
       <div>
         Home App
-        <button @click="${this.openCart}">Open cart</button>
+      
+        <item-store name="Tenis shidos" code="3562" image="https://designmodo.com/demo/shopping-cart/item-1.png" quantity="1" price="150">
+          <button >Buy now</button>
+        </item-store>
       </div>
       `;
   }
