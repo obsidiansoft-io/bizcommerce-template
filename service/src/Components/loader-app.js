@@ -30,8 +30,8 @@ class LoaderApp extends LitElement {
       height: 64px;
       margin: 8px;
       border-radius: 50%;
-      border: 6px solid #000;
-      border-color: #000 transparent #000 transparent;
+      border: 6px solid rgb(94, 105, 119);
+      border-color: rgb(94, 105, 119) transparent rgb(94, 105, 119) transparent;
       animation: lds-dual-ring 1.2s linear infinite;
     }
     @keyframes lds-dual-ring {

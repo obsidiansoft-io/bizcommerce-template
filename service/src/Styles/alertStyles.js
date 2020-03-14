@@ -1,6 +1,6 @@
 import { css } from 'lit-element';
 
-export default css`
+export default css`/*css*/
 .alert {
   z-index: 9999;
   position: fixed;

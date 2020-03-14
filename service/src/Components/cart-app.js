@@ -16,7 +16,8 @@ class CartApp extends connect(store)(LitElement) {
       _currency: { type: String },
       _loading: { type: Boolean, attribute: false },
       _onPay: { type: Boolean, attribute: false },
-      _successPay: { type: Boolean, attribute: false }
+      _successPay: { type: Boolean, attribute: false },
+      _payerInfo: { type: Object, attribute: false }
     }
   }
   static get styles() {
@@ -28,6 +29,11 @@ class CartApp extends connect(store)(LitElement) {
     this._total = 100;
     this._cuantity = 1;
     this._loading = false;
+    this._successPay = false;
+    this._payerInfo = {
+      name: '',
+      emial: ''
+    }
   }
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
@@ -48,61 +54,95 @@ class CartApp extends connect(store)(LitElement) {
         return actions.order.capture().then((details) => {
           // This function shows a transaction success message to your buyer.
           notify('Transaction completed by ' + details.payer.name.given_name, 'success');
-          store.dispatch({ type: 'CLEAR_CART' })
-          console.log(details.payer)
+          store.dispatch({ type: 'CLEAR_CART' });
+          this._payerInfo = {
+            name: details.payer.name.given_name,
+            emial: details.payer.email_address
+          };
           this._loading = false;
+          this._successPay = true;
         });
       },
       onError: error => {
         notify('Transaction error ', 'danger');
+        this._loading = false;
+        this._successPay = false;
       },
       onCancel: (data) => {
         this._loading = false;
+        this._successPay = false;
       }
     }).render('#paypal-button-container');
   }
-  close() {
+  _close() {
+    this._successPay = false;
+    this._payerInfo = {
+      name: '',
+      emial: ''
+    }
     store.dispatch({ type: 'CLEAR_CART' })
     store.dispatch({ type: 'CLOSE_CART' })
   }
 
   render() {
     return html`
-    <div class="shopping-cart" ?visible="${this._active}" ?hide="${!this._active}">
+      <div class="shopping-cart" ?visible="${this._active}" ?hide="${!this._active}">
         <div class="title">
           <div class="text">
             Sharabiz Cart
           </div>
-          <div class="buttons" @click="${this.close}">
+          <div class="buttons" @click="${this._close}">
             <span class="delete-btn">
               <fa-icon class="fas fa-times"></fa-icon>
             </span>
           </div>
         </div>
-        <div class="cart-content" ?hide="${this._loading}">
-          ${this._items.map(item => html`<div class="item">
-            <div class="image">
-              <img src="${item.image}" alt="" />
+        <div class="card-body">
+          <div class="cart-content" ?hide="${this._loading || this._successPay}">
+            ${this._items.map(item => html`<div class="item">
+              <div class="image">
+                <img src="${item.image}" alt="" />
+              </div>
+              <div class="item-name">
+                ${item.name}
+              </div>
+              <div class="quantity">
+                ${item.quantity}
+              </div>
+              <div class="total-price">$${item.price * item.quantity}</div>
+            </div>`)}
+            ${this._items.length > 0 ?
+            html`
+              <div class="checkout">
+                <div class="total-info">
+                  <div>Total: $${this._total}</div>
+                </div>
+                <div class="paypal-pay">
+                  <slot name="paypal-check"></slot>
+                </div>
+              </div>
+              
+            ` : html`<span class="check-items">No items</span>`}
+          </div>
+          <div class="check-items" ?hidden="${!this._loading}">
+            <loader-app ?loading="${this._loading === true}"></loader-app>
+            <span class="wait-purchase">Waiting for purchase confirmation</span>
+          </div>  
+          <div class="success-pay" ?hidden="${!this._successPay}">
+            <div class="success-checkmark">
+              <div class="check-icon">
+                <span class="icon-line line-tip"></span>
+                <span class="icon-line line-long"></span>
+                <div class="icon-circle"></div>
+                <div class="icon-fix"></div>
+              </div>
             </div>
-            <div class="item-name">
-              ${item.name}
-            </div>
-            <div class="quantity">
-              ${item.quantity}
-            </div>
-            <div class="total-price">$${item.price * item.quantity}</div>
-          </div>`)}
-          ${this._items.length > 0 ?
-          html`
-            <div class="paypal-pay">
-              <slot name="paypal-check"></slot>
-            </div>
-          ` : html`<span class="check-items">No items</span>`}
+            <h3 class="success-message">Successful Payment</h3>
+            <span class="payer-message">
+              Thanks ${this._payerInfo.name} for buying, we send an email to ${this._payerInfo.emial} to track your purchase.
+            </span>
+          </div>
         </div>
-        <span class="check-items">
-          <loader-app ?loading="${this._loading === true}"></loader-app>
-        </span>
-        
       </div>
       <div class="hover" @click="${this.close}"></div>`;
   }
