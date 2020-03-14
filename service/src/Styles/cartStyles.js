@@ -10,6 +10,7 @@ export default css`
   z-index: 1;
   visibility: hidden;
   transition-delay: 620ms;
+  color: #43484D;
 }
 :host([active]) {
   visibility: visible;
@@ -220,7 +221,19 @@ export default css`
   }
   .buttons {
     margin-right: 20px;
-  } 
+  }
+  .checkout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .checkout .total-info {
+    width: 100%;
+    padding: 10px;
+  }
+  .checkout .paypal-pay {
+    width: 100%;
+  }
 }
   /** Success icon */
 .success-checkmark {

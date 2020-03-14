@@ -52,8 +52,6 @@ class CartApp extends connect(store)(LitElement) {
       onApprove: (data, actions) => {
         // This function captures the funds from the transaction.
         return actions.order.capture().then((details) => {
-          // This function shows a transaction success message to your buyer.
-          notify('Transaction completed by ' + details.payer.name.given_name, 'success');
           store.dispatch({ type: 'CLEAR_CART' });
           this._payerInfo = {
             name: details.payer.name.given_name,
@@ -118,6 +116,7 @@ class CartApp extends connect(store)(LitElement) {
                   <div>Total: $${this._total}</div>
                 </div>
                 <div class="paypal-pay">
+                  <span>Checkout with Paypal</span>
                   <slot name="paypal-check"></slot>
                 </div>
               </div>
@@ -144,7 +143,7 @@ class CartApp extends connect(store)(LitElement) {
           </div>
         </div>
       </div>
-      <div class="hover" @click="${this.close}"></div>`;
+      <div class="hover" @click="${this._close}"></div>`;
   }
   stateChanged(state) {
     this._active = state.cart.visible
