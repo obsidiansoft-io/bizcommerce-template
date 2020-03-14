@@ -7,14 +7,13 @@ export default css`
   right:0;
   bottom:0;
   left:0;
-  transition: all 1s;
   z-index: 1;
   visibility: hidden;
-  display: none;
+  transition-delay: 620ms;
 }
 :host([active]) {
   visibility: visible;
-  display: block;
+  transition-delay: 0s;
 }
 .shopping-cart {
   width: 750px;
@@ -23,15 +22,29 @@ export default css`
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+
   background: #FFFFFF;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
   border-radius: 6px;
- 
   display: flex;
   flex-direction: column;
   z-index: 3;
+  animation-name: close-side;
+  animation-duration: 300ms;
+}
+.shopping-cart[visible]{
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  animation-name: show-side;
+  animation-duration: 300ms;
+  
+}
+.shopping-cart[hide]{
+  -ms-transform: translate(150%, 150%);
+  transform: translate(150%, 150%);
+}
+.cart-content[hide] {
+  display: none;
 }
 .check-items {
   padding: 20px 30px;
@@ -70,45 +83,28 @@ export default css`
   border-top:  1px solid #E1E8EE;
   border-bottom:  1px solid #E1E8EE;
 }
-.buttons {
-  position: relative;
-  padding-top: 30px;
-  margin-right: 60px;
-}
-.delete-btn,
-.like-btn {
-  display: inline-block;
-  Cursor: pointer;
-}
-.delete-btn {
-  width: 18px;
-  height: 17px;
-  background: url(&quot;delete-icn.svg&quot;) no-repeat center;
-}
  
-.like-btn {
-  position: absolute;
-  top: 9px;
-  left: 15px;
-  background: url('twitter-heart.png');
-  width: 60px;
-  height: 60px;
-  background-size: 2900%;
-  background-repeat: no-repeat;
+@keyframes show-side {
+  from {
+    -ms-transform: translate(-50%,-150%);
+    transform: translate(-50%,-150%);
+  }
+  to {
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+  }
 }
-.is-active {
-  animation-name: animate;
-  animation-duration: .8s;
-  animation-iteration-count: 1;
-  animation-timing-function: steps(28);
-  animation-fill-mode: forwards;
+@keyframes close-side {
+  from {
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+  }
+  to {
+    -ms-transform: translate(-50%,-200%);
+    transform: translate(-50%,-200%);
+  }
 }
- 
-@keyframes animate {
-  0%   { background-position: left;  }
-  50%  { background-position: right; }
-  100% { background-position: right; }
-}
+
 .image {
   margin-right: 50px;
 }
@@ -150,26 +146,6 @@ Let’s add some basic style to  product name and description.
   font-size: 16px;
   color: #43484D;
   font-weight: 300;
-}
- 
-button[class*=btn] {
-  width: 30px;
-  height: 30px;
-  background-color: #E1E8EE;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-.minus-btn img {
-  margin-bottom: 3px;
-}
-.plus-btn img {
-  margin-top: 2px;
-}
- 
-button:focus,
-input:focus {
-  outline:0;
 }
 .total-price {
   width: 83px;
