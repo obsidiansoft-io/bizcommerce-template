@@ -21,12 +21,13 @@ export default css`
 }
 .shopping-cart {
   width: 750px;
-  height: 423px;
+  height: auto;
+  min-height: 367px;
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
-
+  overflow: auto;
   background: #FFFFFF;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
   border-radius: 6px;
@@ -100,10 +101,20 @@ export default css`
   justify-content: space-between;
 }
 .checkout .total-info {
-  width: 50%;
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.total-info:first-child {
+  font-weight: bold;
 }
 .checkout .paypal-pay {
   width: 50%;
+}
+.paypal-pay span {
+  font-size: 15px;
+  color: #43484D;
 }
 @keyframes show-side {
   from {

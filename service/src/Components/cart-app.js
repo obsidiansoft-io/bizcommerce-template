@@ -87,7 +87,7 @@ class CartApp extends connect(store)(LitElement) {
       <div class="shopping-cart" ?visible="${this._active}" ?hide="${!this._active}">
         <div class="title">
           <div class="text">
-            Sharabiz Cart
+            Checkout
           </div>
           <div class="buttons" @click="${this._close}">
             <span class="delete-btn">
@@ -113,7 +113,8 @@ class CartApp extends connect(store)(LitElement) {
             html`
               <div class="checkout">
                 <div class="total-info">
-                  <div>Total: $${this._total}</div>
+                  <div>Total:</div>
+                  <div> $${this._total}</div>
                 </div>
                 <div class="paypal-pay">
                   <span>Checkout with Paypal</span>
