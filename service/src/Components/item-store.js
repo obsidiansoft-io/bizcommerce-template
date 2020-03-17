@@ -15,8 +15,6 @@ function privateItem() {
     setItem
   }
 }
-
-let item = privateItem();
 class ItemStore extends connect(store)(LitElement) {
   static get properties() {
     return {
@@ -24,11 +22,16 @@ class ItemStore extends connect(store)(LitElement) {
       quantity: { type: Number, hasChanged() { return false } },
       image: { type: String, hasChanged() { return false } },
       name: { type: String, hasChanged() { return false } },
-      code: { type: String, hasChanged() { return false } }
+      code: { type: String, hasChanged() { return false } },
+      _item: { type: String, attribute: false }
     }
   }
+  constructor(){
+    super();
+    this._item = privateItem();
+  }
   firstUpdated() {
-    item.setItem({
+    this._item.setItem({
       price: this.price,
       quantity: this.quantity,
       image: this.image,
@@ -40,7 +43,7 @@ class ItemStore extends connect(store)(LitElement) {
     store.dispatch({ type: 'CLEAR_CART' })
     store.dispatch({
       type: 'ADD_ITEM',
-      item: item.getItem()
+      item: this._item.getItem()
     })
     store.dispatch({ type: 'OPEN_CART' })
 
