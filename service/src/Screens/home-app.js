@@ -17,7 +17,7 @@ class HomeApp extends connect(store)(PageView) {
       <div>
         Home App
       
-        <item-store name="Tenis shidos" code="3562" image="https://designmodo.com/demo/shopping-cart/item-1.png" quantity="1" price="150">
+        <item-store name="Tenis shidos" code="3562" image="https://i01.appmifile.com/webfile/globalimg/Syueting/bldack.png" quantity="1" price="150">
           <button >Buy now</button>
         </item-store>
         <span @click="${this.test}">test notify</span>

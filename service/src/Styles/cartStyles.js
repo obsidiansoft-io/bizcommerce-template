@@ -140,6 +140,10 @@ export default css`
 .image {
   margin-right: 50px;
 }
+.image img {
+  max-width: 120px;
+  height: 100%;
+}
 .description {
   padding-top: 10px;
   margin-right: 60px;
