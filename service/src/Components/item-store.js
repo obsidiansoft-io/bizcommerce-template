@@ -13,20 +13,45 @@ function privateItem() {
   return {
     getItem,
     setItem
-  }
+  };
 }
 class ItemStore extends connect(store)(LitElement) {
   static get properties() {
     return {
-      price: { type: Number, hasChanged() { return false } },
-      quantity: { type: Number, hasChanged() { return false } },
-      image: { type: String, hasChanged() { return false } },
-      name: { type: String, hasChanged() { return false } },
-      code: { type: String, hasChanged() { return false } },
+      price: {
+        type: Number,
+        hasChanged() {
+          return false;
+        }
+      },
+      quantity: {
+        type: Number,
+        hasChanged() {
+          return false;
+        }
+      },
+      image: {
+        type: String,
+        hasChanged() {
+          return false;
+        }
+      },
+      name: {
+        type: String,
+        hasChanged() {
+          return false;
+        }
+      },
+      code: {
+        type: String,
+        hasChanged() {
+          return false;
+        }
+      },
       _item: { type: String, attribute: false }
-    }
+    };
   }
-  constructor(){
+  constructor() {
     super();
     this._item = privateItem();
   }
@@ -40,17 +65,16 @@ class ItemStore extends connect(store)(LitElement) {
     });
   }
   _checkOut() {
-    store.dispatch({ type: 'CLEAR_CART' })
+    store.dispatch({ type: 'CLEAR_CART' });
     store.dispatch({
       type: 'ADD_ITEM',
       item: this._item.getItem()
-    })
-    store.dispatch({ type: 'OPEN_CART' })
-
+    });
+    store.dispatch({ type: 'OPEN_CART' });
   }
   render() {
     return html`
-        <slot @click="${this._checkOut}"></slot>
+      <slot @click="${this._checkOut}"></slot>
     `;
   }
 }

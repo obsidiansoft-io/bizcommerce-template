@@ -1,4 +1,3 @@
-
 import { html } from 'lit-element';
 import { connect } from 'pwa-helpers/connect-mixin.js';
 
@@ -16,13 +15,19 @@ class HomeApp extends connect(store)(PageView) {
     return html`
       <div>
         Home App
-      
-        <item-store name="Tenis shidos" code="3562" image="https://i01.appmifile.com/webfile/globalimg/Syueting/bldack.png" quantity="1" price="150">
-          <button >Buy now</button>
+
+        <item-store
+          name="Tenis shidos"
+          code="3562"
+          image="https://i01.appmifile.com/webfile/globalimg/Syueting/bldack.png"
+          quantity="1"
+          price="150"
+        >
+          <button>Buy now</button>
         </item-store>
         <span @click="${this.test}">test notify</span>
       </div>
-      `;
+    `;
   }
 }
 
